@@ -12,7 +12,10 @@ def FindWay(current_matrix,v1,v2,count):
             return -1
     return way
 
-
+def FindCount(current_matrix,v1,v2,way):
+    for i in range (1,way):
+        current_matrix = np.dot(current_matrix, matrix)
+    return current_matrix[v1-1][v2-1]
 
 
 def main():
@@ -29,16 +32,37 @@ def main():
         print("")
         if (choice == 1):
             v1 = int(input("Первая вершина: "))
+            if (v1 > count) or (v1 < 1):
+                print("Такой вершины не существует!!!")
+                continue
             v2 = int (input("Вторая вершина: "))
-            if (v1 > count) or (v2 > count) or (v1 < 1) or (v2 < 1):
+            if (v2 > count) or (v2 < 1):
                 print("Такой вершины не существует!!!")
                 continue
             way = FindWay(current_matrix,v1,v2,count)
             if (way == -1):
-                print("Вершины v"+str(v1)+" и v"+str(v2)+" не связаны")
+                print(f"Вершины v{v1} и v{v2} не связаны")
             else:
                 print("Расстояние: "+str(way))
             print("")
+        if (choice == 2):
+            v1 = int(input("Первая вершина: "))
+            if (v1 > count) or (v1 < 1):
+                print("Такой вершины не существует!!!")
+                continue
+            v2 = int(input("Вторая вершина: "))
+            if (v2 > count) or (v2 < 1):
+                print("Такой вершины не существует!!!")
+                continue
+            way = int(input("Длина маршрута: "))
+            if (way < 1):
+                print("Длина маршрута должна быть больше 0 !!!")
+                continue
+            number = FindCount(current_matrix,v1,v2,way)
+            print(f"Количество маршрутов длины {way} между вершинами "
+                  f"v{v1} и v{v2} равно {number}")
+
+        print("")
         while (True):
             close = int(input("Выберите действие:\n"
                                "1 - ещё раз\n"
@@ -50,6 +74,7 @@ def main():
             break
         if (close == 2):
             break
+        print("")
 
 
 
